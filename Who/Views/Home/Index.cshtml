@@ -1,0 +1,46 @@
+﻿@model Who.Models.AccountSet
+@{
+    ViewBag.Title = "3PP Account Assignments";
+}
+                <div class="display-field">
+                @if (Model.Error != null)
+                {
+                    <p>
+                        <div>@Model.Error</div>
+                    </p>
+                }
+                else
+                {
+                    <div id="account-list">
+                        <input class="search" placeholder="Search" />
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>RM</th>
+                                    <th>DAM</th>
+                                    <th>AM</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                            @foreach (var a in Model.Accounts)
+                            {
+                                <tr>
+                                    <td class="Name">@a.Name</td>
+                                    <td class="AM">@a.AM</td>
+                                    <td class="RM">@a.RM</td>
+                                    <td class="DAM">@a.DAM</td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                </div>
+                <script src="~/Scripts/list.min.js"></script>
+                <script type="text/javascript">
+                    list = new List('account-list', {
+                        valueNames: ['Name', 'AM', 'RM', 'DAM'],
+                        page: 9999
+                    });
+                </script>
