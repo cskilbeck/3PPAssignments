@@ -1,0 +1,7 @@
+
+*.pubxml
+*.FileListAbsolute.txt
+
+Debug/
+obj/
+packages/

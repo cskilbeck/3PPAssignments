@@ -17,19 +17,28 @@
                             <thead>
                                 <tr>
                                     <th>Account</th>
-                                    <th>RM</th>
-                                    <th>DAM</th>
-                                    <th>AM</th>
+                                    @foreach (var t in Model.Roles)
+                                    {
+                                    <th>@t</th>
+                                    }
                                 </tr>
                             </thead>
                             <tbody class="list">
                             @foreach (var a in Model.Accounts)
                             {
                                 <tr>
-                                    <td class="Name">@a.Name</td>
-                                    <td class="AM">@a.AM</td>
-                                    <td class="RM">@a.RM</td>
-                                    <td class="DAM">@a.DAM</td>
+                                    <td class="Name">@a.Key</td>
+                                    @foreach (var t in Model.Roles)
+                                    {
+                                        if (a.Value.Managers.ContainsKey(t))
+                                        {
+                                    <td class="@t">@a.Value.Managers[t].Name</td>
+                                        }
+                                        else
+                                        {
+                                    <td class="@t">-</td>
+                                        }
+                                    }
                                 </tr>
                             }
                             </tbody>
@@ -38,9 +47,6 @@
                 }
                 </div>
                 <script src="~/Scripts/list.min.js"></script>
-                <script type="text/javascript">
-                    list = new List('account-list', {
-                        valueNames: ['Name', 'AM', 'RM', 'DAM'],
-                        page: 9999
-                    });
+                <script>
+                    list = new List('account-list', { valueNames: [ 'Name'@foreach(var t in Model.Roles) { @MvcHtmlString.Create(",'" + t.ToString() + "'"); } ], page: 9999 } );
                 </script>

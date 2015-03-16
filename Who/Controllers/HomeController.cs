@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Who.Models;
 using Microsoft.VisualBasic.FileIO;
+using System.IO;
 
 namespace Who.Controllers
 {
@@ -12,34 +13,33 @@ namespace Who.Controllers
             AccountSet a = new AccountSet();
             try
             {
-                using (TextFieldParser parser = new TextFieldParser("D:\\temp.csv"))
+                using (TextFieldParser parser = new TextFieldParser(Server.MapPath("~") + "\\temp.csv"))
                 {
                     parser.TextFieldType = FieldType.Delimited;
                     parser.SetDelimiters(",");
                     while (!parser.EndOfData)
                     {
                         string[] values = parser.ReadFields();
-                        for (int i = values.Length; i < 4; ++i)
+
+                        if (values[0] == "Account Name" &&
+                            values[1] == "Manager Role" &&
+                            values[2] == "Full Name (Microsoft Manager)" &&
+                            values[3] != null &&
+                            values[4] != null &&
+                            values[5] != null)
                         {
-                            values[i] = "";
+                            a.Add(values[3], values[4], values[5]);
                         }
-                        a.Accounts.Add(new AccountSet.Account
-                        {
-                            Name = values[0],
-                            DAM = values[1],
-                            AM = values[2],
-                            RM = values[3]
-                        });
                     }
                 } 
             }
             catch (System.IO.FileNotFoundException)
             {
-                a.Error = "Data file not found";
+                a.Error = "Data file not found in " + Directory.GetCurrentDirectory() + "@" + Server.MapPath("~");
             }
             catch (System.IO.IOException)
             {
-                a.Error = "IO Error loading data file";
+                a.Error = "IO Error loading data file from " + Directory.GetCurrentDirectory();
             }
             return View(a);
         }
