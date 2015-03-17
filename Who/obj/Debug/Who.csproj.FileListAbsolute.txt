@@ -2,7 +2,6 @@ d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\Who.dll.confi
 d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\Who.dll
 d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\Who.pdb
 d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\Antlr3.Runtime.dll
-d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\EntityFramework.dll
 d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\Microsoft.Data.Edm.dll
 d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\Microsoft.Data.OData.dll
 d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\Microsoft.Web.Infrastructure.dll
@@ -18,7 +17,6 @@ d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\System.Web.We
 d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\System.Web.WebPages.dll
 d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\System.Web.WebPages.Razor.dll
 d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\WebGrease.dll
-d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\EntityFramework.xml
 d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\Newtonsoft.Json.xml
 d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\System.Web.Helpers.xml
 d:\users\charlie\documents\visual studio 2013\Projects\Who\Who\bin\System.Web.Mvc.xml

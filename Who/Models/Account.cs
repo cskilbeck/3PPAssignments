@@ -60,6 +60,7 @@ namespace Who.Models
             {
                 Account n = AddAccount(accountName, accountGuid);
                 n.AddManager(managerName, managerRole);
+                AddAccount(accountName).AddManager(managerName, managerRole);
                 Roles.Add(managerRole);
             }
         }
