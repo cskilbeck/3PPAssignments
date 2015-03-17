@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using System;
 using System.Web.Mvc;
 using Who.Models;
 using Microsoft.VisualBasic.FileIO;
@@ -8,40 +8,25 @@ namespace Who.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(string region)
         {
-            AccountSet a = new AccountSet();
-            try
+            if (region == null)
             {
-                using (TextFieldParser parser = new TextFieldParser(Server.MapPath("~") + "\\temp.csv"))
+                return Redirect("/Regions");
+            }
+            else
+            {
+                AccountSet a = new AccountSet();
+                try
                 {
-                    parser.TextFieldType = FieldType.Delimited;
-                    parser.SetDelimiters(",");
-                    while (!parser.EndOfData)
-                    {
-                        string[] values = parser.ReadFields();
-
-                        if (values[0] == "Account Name" &&
-                            values[1] == "Manager Role" &&
-                            values[2] == "Full Name (Microsoft Manager)" &&
-                            values[3] != null &&
-                            values[4] != null &&
-                            values[5] != null)
-                        {
-                            a.Add(values[3], values[4], values[5]);
-                        }
-                    }
-                } 
+                    a.Load(region);
+                }
+                catch (Exception e)
+                {
+                    a.Error = e.ToString();
+                }
+                return View(a);
             }
-            catch (System.IO.FileNotFoundException)
-            {
-                a.Error = "Data file not found in " + Directory.GetCurrentDirectory() + "@" + Server.MapPath("~");
-            }
-            catch (System.IO.IOException)
-            {
-                a.Error = "IO Error loading data file from " + Directory.GetCurrentDirectory();
-            }
-            return View(a);
         }
     }
 }

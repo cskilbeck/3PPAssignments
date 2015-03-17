@@ -1,0 +1,17 @@
+﻿@model Who.Models.RegionsSet
+
+@{
+    ViewBag.Title = "Regions";
+}
+                <table>
+                    <tr>
+                        <th>Regions</th>
+                    </tr>
+                    @foreach (var item in Model.Regions) {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(@item.Value.Name, "Index", "Home", new { region = item.Value.GUID }, null )
+                        </td>
+                    </tr>
+                    }
+                </table>
