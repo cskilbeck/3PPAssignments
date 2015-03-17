@@ -58,9 +58,7 @@ namespace Who.Models
         {
             if(managerRole != null && managerRole.Length > 0)
             {
-                Account n = AddAccount(accountName, accountGuid);
-                n.AddManager(managerName, managerRole);
-                AddAccount(accountName).AddManager(managerName, managerRole);
+                AddAccount(accountName, accountGuid).AddManager(managerName, managerRole);
                 Roles.Add(managerRole);
             }
         }
