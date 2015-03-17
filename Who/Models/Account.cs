@@ -93,23 +93,23 @@ namespace Who.Models
                     SqlDataReader r = cmd.ExecuteReader();
                     while (r.Read())
                     {
-                        object accountGuid = r["AccountGuid"];
-                        object account = r["Account"];
-                        object manager = r["Manager"];
-                        object role = r["Role"];
-                        if (accountGuid.GetType() == typeof(DBNull))
+                        var accountGuid = r["AccountGuid"];
+                        var account = r["Account"];
+                        var manager = r["Manager"];
+                        var role = r["Role"];
+                        if (accountGuid == DBNull.Value)
                         {
                             accountGuid = "";
                         }
-                        if (account.GetType() == typeof(DBNull))
+                        if (account == DBNull.Value)
                         {
                             account = "-";
                         }
-                        if (manager.GetType() == typeof(DBNull))
+                        if (manager == DBNull.Value)
                         {
                             manager = "-";
                         }
-                        if (role.GetType() == typeof(DBNull))
+                        if (role == DBNull.Value)
                         {
                             role = "-";
                         }

@@ -33,11 +33,6 @@ namespace Who.Models
             return r;
         }
 
-        public SortedDictionary<string, Region> Regions = new SortedDictionary<string,Region>();
-        public string Error { get; set; }
-
-        string connectionString="Data Source=EDPSSQLCP01-SQL\\PSVSQLPROD;Initial Catalog=PRM;Integrated Security=True";
-
         public RegionsSet()
         {
             SqlConnection db;
@@ -50,13 +45,13 @@ namespace Who.Models
                     SqlDataReader r = cmd.ExecuteReader();
                     while (r.Read())
                     {
-                        object name = r["Name"];
-                        object guid = r["GUID"];
-                        if (name.GetType() == typeof(DBNull))
+                        var name = r["Name"];
+                        var guid = r["GUID"];
+                        if (name == DBNull.Value)
                         {
                             name = "-";
                         }
-                        if (guid.GetType() == typeof(DBNull))
+                        if (guid == DBNull.Value)
                         {
                             guid = "-";
                         }
@@ -65,9 +60,14 @@ namespace Who.Models
                 }
                 catch (SqlException e)
                 {
-                    Error = "Database error!?";
+                    Error = "Database error: " + e.ToString();
                 }
             }
         }
+
+        public SortedDictionary<string, Region> Regions = new SortedDictionary<string, Region>();
+        public string Error { get; set; }
+
+        string connectionString="Data Source=EDPSSQLCP01-SQL\\PSVSQLPROD;Initial Catalog=PRM;Integrated Security=True";
     }
 }
