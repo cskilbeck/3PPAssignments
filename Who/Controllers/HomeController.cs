@@ -8,9 +8,9 @@ namespace Who.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(string region)
+        public ActionResult Index(string id)
         {
-            if (region == null)
+            if (id == null)
             {
                 return Redirect("/Regions");
             }
@@ -19,7 +19,7 @@ namespace Who.Controllers
                 AccountSet a = new AccountSet();
                 try
                 {
-                    a.Load(region);
+                    a.Load(id);
                 }
                 catch (Exception e)
                 {

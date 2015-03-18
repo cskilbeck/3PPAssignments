@@ -10,7 +10,7 @@
                     @foreach (var item in Model.Regions) {
                     <tr>
                         <td>
-                            @Html.ActionLink(@item.Value.Name, "Index", "Home", new { region = item.Value.GUID }, null )
+                            @Html.ActionLink(@item.Value.Name, "Index", "Home", new { id = item.Value.GUID }, null )
                         </td>
                     </tr>
                     }
