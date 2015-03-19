@@ -67,7 +67,7 @@
                     $('#searchbox').attr('placeholder', 'Search...');
                     $('#searchbox').prop('disabled', false);
                     doExport = function () {
-                        var blob = new Blob([$('#myTable').table2CSV({ header: ['Name'@foreach(var t in Model.Roles) { @MvcHtmlString.Create(",'" + t.ToString() + "'"); }] })], { type: 'text/csv;charset=utf-8' });
+                        var blob = new Blob([$('.myTable').table2CSV({ header: ['Name'@foreach(var t in Model.Roles) { @MvcHtmlString.Create(",'" + t.ToString() + "'"); }] })], { type: 'text/csv;charset=utf-8' });
                         window.saveAs(blob, "accounts.csv");
                     }
                 </script>
