@@ -230,6 +230,7 @@
     <None Include="Properties\PublishProfiles\Assignments.pubxml" />
     <None Include="Properties\PublishProfiles\Assignments2.pubxml" />
     <Content Include="Views\Regions\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\Who.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
