@@ -1,12 +1,16 @@
 ﻿@model Who.Models.AccountSet
 @{
-    ViewBag.Title = "3PP Account Assignments";
     if (Model == null)
     {
         Response.Redirect("/Regions/Index");
         return;
     }
+    ViewBag.RegionName = ": " + Model.RegionName;
+    ViewBag.Title = "3PP Account Assignments : " + Model.RegionName;
 }
+                <script src="~/Scripts/filter.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+                <script src="~/Scripts/html2CSV.js"></script>
                 <div class="display-field">
                 @if (Model.Error != null)
                 {
@@ -17,13 +21,16 @@
                 else
                 {
                     <div id="account-list">
-                        <span>
-                            <input class="search" placeholder="Search" />
+                        <span id="searchspan">
+                            <input type="search" data-table="myTable" id="searchbox" class="light-table-filter" placeholder="Loading..." disabled />
+                            <script>
+                                $('#searchbox').attr('placeholder', 'Loading...');
+                            </script>
                         </span>
                         <span class="float-right">
                             <button onclick="doExport()">Export</button>
                         </span>
-                        <table id="myTable">
+                        <table class="myTable">
                             <thead>
                                 <tr>
                                     <th>Account</th>
@@ -37,14 +44,7 @@
                             @foreach (var a in Model.Accounts)
                             {
                                 <tr>
-                                    <td class="Name">
-                                        @{
-                                            string link = "https://edcrm/PRISM/sfa/accts/edit.aspx?id=%7b";
-                                            link += a.Value.Guid;
-                                            link += "%7d";
-                                            }
-                                        <a href="@link">@a.Key</a>
-                                        </td>
+                                    <td class="Name"><a href=@Html.AttributeEncode("https://edcrm/PRISM/sfa/accts/edit.aspx?id=%7b" + a.Value.Guid + "%7d")>@a.Key</a></td>
                                     @foreach (var t in Model.Roles)
                                     {
                                         if (a.Value.Managers.ContainsKey(t))
@@ -63,11 +63,9 @@
                     </div>
                 }
                 </div>
-                <script src="~/Scripts/list.min.js"></script>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-                <script src="~/Scripts/html2CSV.js"></script>
                 <script>
-                    list = new List('account-list', { valueNames: ['Name'@foreach(var t in Model.Roles) { @MvcHtmlString.Create(",'" + t.ToString() + "'"); }], page: 9999 });
+                    $('#searchbox').attr('placeholder', 'Search...');
+                    $('#searchbox').prop('disabled', false);
                     doExport = function () {
                         var blob = new Blob([$('#myTable').table2CSV({ header: ['Name'@foreach(var t in Model.Roles) { @MvcHtmlString.Create(",'" + t.ToString() + "'"); }] })], { type: 'text/csv;charset=utf-8' });
                         window.saveAs(blob, "accounts.csv");

@@ -10,7 +10,7 @@ namespace Who.Models
         public class Region : IComparable
         {
             public string Name { get; set; }
-            public string GUID { get; set; }
+            public Guid GUID { get; set; }
 
             public int CompareTo(object obj)
             {
@@ -18,7 +18,7 @@ namespace Who.Models
             }
         }
 
-        public Region AddRegion(string name, string guid)
+        public Region AddRegion(string name, Guid guid)
         {
             Region r;
             if (Regions.ContainsKey(name))
@@ -41,7 +41,7 @@ namespace Who.Models
                 try
                 {
                     db.Open();
-                    SqlCommand cmd = new SqlCommand(@"SELECT xap_name as Name, xap_salesregionid as GUID FROM PRM.dbo.FilteredXap_salesregion WHERE statuscode=1", db);
+                    SqlCommand cmd = new SqlCommand(@"SELECT [xap_name] AS Name ,[xap_salesregionid] AS GUID FROM [PRISM_MSCRM].[dbo].[FilteredXap_salesregion] WHERE statuscode=1", db);
                     SqlDataReader r = cmd.ExecuteReader();
                     while (r.Read())
                     {
@@ -51,11 +51,10 @@ namespace Who.Models
                         {
                             name = "-";
                         }
-                        if (guid == DBNull.Value)
+                        if (guid != DBNull.Value)
                         {
-                            guid = "-";
+                            AddRegion((string)name, (Guid)guid);
                         }
-                        AddRegion((string)name, guid.ToString());
                     }
                 }
                 catch (SqlException e)
@@ -68,6 +67,6 @@ namespace Who.Models
         public SortedDictionary<string, Region> Regions = new SortedDictionary<string, Region>();
         public string Error { get; set; }
 
-        string connectionString="Data Source=EDPSSQLCP01-SQL\\PSVSQLPROD;Initial Catalog=PRM;Integrated Security=True";
+        string connectionString = "Data Source=EDCRMSQLCP01;Initial Catalog=PRISM_MSCRM;Integrated Security=True";
     }
 }

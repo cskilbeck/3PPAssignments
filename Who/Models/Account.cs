@@ -15,7 +15,7 @@ namespace Who.Models
         public class Account : IComparable
         {
             public string Name { get; set; }
-            public string Guid { get; set; }
+            public Guid Guid { get; set; }
 
             public void AddManager(string name, string role)
             {
@@ -25,7 +25,7 @@ namespace Who.Models
                 }
             }
 
-            public Account(string name, string guid)
+            public Account(string name, Guid guid)
             {
                 Name = name;
                 Guid = guid;
@@ -39,7 +39,7 @@ namespace Who.Models
             }
         }
 
-        public Account AddAccount(string name, string guid)
+        public Account AddAccount(string name, Guid guid)
         {
             Account n;
             if(!Accounts.ContainsKey(name))
@@ -54,7 +54,7 @@ namespace Who.Models
             return n;
         }
 
-        public void Add(string accountGuid, string accountName, string managerRole, string managerName)
+        public void Add(Guid accountGuid, string accountName, string managerRole, string managerName)
         {
             if(managerRole != null && managerRole.Length > 0)
             {
@@ -63,7 +63,7 @@ namespace Who.Models
             }
         }
 
-        string connectionString = "Data Source=EDPSSQLCP01-SQL\\PSVSQLPROD;Initial Catalog=PRM;Integrated Security=True";
+        string connectionString = "Data Source=EDCRMSQLCP01;Initial Catalog=PRISM_MSCRM;Integrated Security=True";
 
         public AccountSet()
         {
@@ -79,16 +79,16 @@ namespace Who.Models
                 {
                     db.Open();
                     SqlCommand cmd = new SqlCommand(@"  SELECT
-	                                                        xap_managersid as AccountGuid,
+                                                            xap_managersid as AccountGuid,
                                                             xap_managersidname as Account,
-	                                                        xap_manageridname as Manager,
-	                                                        xap_managerrolename as Role
-                                                        FROM filteredxap_additionalmanager
+                                                            xap_manageridname as Manager,
+                                                            xap_managerrolename as Role
+                                                        FROM [PRISM_MSCRM].[dbo].[FilteredXap_additionalmanager]
                                                         WHERE
-	                                                        xap_salesregionid = @region
+                                                            xap_salesregionid = @region AND
+                                                            xap_managerrole IS NOT NULL
                                                         ORDER BY
-	                                                        Account, Manager, Role
-                                                        ", db);
+                                                            Account, Manager, Role", db);
                     cmd.Parameters.Add(new SqlParameter("region", region));
                     SqlDataReader r = cmd.ExecuteReader();
                     while (r.Read())
@@ -97,23 +97,22 @@ namespace Who.Models
                         var account = r["Account"];
                         var manager = r["Manager"];
                         var role = r["Role"];
-                        if (accountGuid == DBNull.Value)
+                        if (accountGuid != DBNull.Value)
                         {
-                            accountGuid = "";
+                            if (account == DBNull.Value)
+                            {
+                                account = "-";
+                            }
+                            if (manager == DBNull.Value)
+                            {
+                                manager = "-";
+                            }
+                            if (role == DBNull.Value)
+                            {
+                                role = "-";
+                            }
+                            Add((Guid)accountGuid, (string)account, (string)role, (string)manager);
                         }
-                        if (account == DBNull.Value)
-                        {
-                            account = "-";
-                        }
-                        if (manager == DBNull.Value)
-                        {
-                            manager = "-";
-                        }
-                        if (role == DBNull.Value)
-                        {
-                            role = "-";
-                        }
-                        Add(accountGuid.ToString(), (string)account, (string)role, (string)manager);
                     }
                 }
                 catch (SqlException e)
@@ -122,6 +121,8 @@ namespace Who.Models
                 }
             }
         }
+
+        public string RegionName { get; set; }
 
         public string Error { get; set; }
 

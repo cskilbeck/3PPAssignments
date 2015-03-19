@@ -8,7 +8,7 @@ namespace Who.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(string id)
+        public ActionResult Index(string id, string name)
         {
             if (id == null)
             {
@@ -25,6 +25,7 @@ namespace Who.Controllers
                 {
                     a.Error = e.ToString();
                 }
+                a.RegionName = name;
                 return View(a);
             }
         }
