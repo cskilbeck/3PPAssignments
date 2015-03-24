@@ -260,6 +260,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\filter.js" />
     <Content Include="Scripts\html2CSV.js" />
+    <Content Include="Scripts\sorttable.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

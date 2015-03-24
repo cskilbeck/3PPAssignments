@@ -101,15 +101,15 @@ namespace Who.Models
                         {
                             if (account == DBNull.Value)
                             {
-                                account = "-";
+                                account = "&#x2019;";
                             }
                             if (manager == DBNull.Value)
                             {
-                                manager = "-";
+                                manager = "KNOB &#x2019;";
                             }
                             if (role == DBNull.Value)
                             {
-                                role = "-";
+                                role = "&#x2014;";
                             }
                             Add((Guid)accountGuid, (string)account, (string)role, (string)manager);
                         }

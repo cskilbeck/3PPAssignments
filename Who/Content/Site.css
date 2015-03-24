@@ -489,6 +489,7 @@ th {
     padding-left: 0.5em;
     padding-right: 0.5em;
     background-color:#bbb;
+    cursor:pointer;
 }
 
     tr.normal:nth-child(even) {

@@ -49,7 +49,7 @@ namespace Who.Models
                         var guid = r["GUID"];
                         if (name == DBNull.Value)
                         {
-                            name = "-";
+                            name = "&#x2014;";
                         }
                         if (guid != DBNull.Value)
                         {
