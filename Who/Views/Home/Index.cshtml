@@ -43,7 +43,7 @@
                             <tbody class="list">
                             @foreach (var a in Model.Accounts)
                             {
-                                <tr>
+                                <tr class="normal">
                                     <td class="Name"><a href=@Html.AttributeEncode("https://edcrm/PRISM/sfa/accts/edit.aspx?id=%7b" + a.Value.Guid + "%7d")>@a.Key</a></td>
                                     @foreach (var t in Model.Roles)
                                     {

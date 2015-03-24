@@ -4,6 +4,8 @@
     var LightTableFilter = (function (Arr) {
 
         var _input;
+        var color = ["odd", "even"];
+        var rowToggle;
 
         function _onInputEvent(e) {
             _input = e.target;
@@ -11,6 +13,7 @@
             var tables = document.getElementsByClassName(a);
             Arr.forEach.call(tables, function (table) {
                 Arr.forEach.call(table.tBodies, function (tbody) {
+                    rowToggle = 0;
                     Arr.forEach.call(tbody.rows, _filter);
                 });
             });
@@ -18,7 +21,12 @@
 
         function _filter(row) {
             var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-            row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+            var invisible = text.indexOf(val) === -1;
+            row.style.display = invisible ? 'none' : 'table-row';
+            if (!invisible) {
+                row.className = color[rowToggle];
+                rowToggle = 1 - rowToggle;
+            }
         }
 
         return {

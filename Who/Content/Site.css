@@ -491,8 +491,20 @@ th {
     background-color:#bbb;
 }
 
-    tr:nth-child(even) {
+    tr.normal:nth-child(even) {
+        background-color:#eee;
+    }
+
+    tr.normal:nth-child(odd) {
         background-color:#DDD;
+    }
+
+    tr.odd {
+        background-color:#ddd;
+    }
+
+    tr.even {
+        background-color:#eee;
     }
 
     th a {
