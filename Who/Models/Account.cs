@@ -105,11 +105,11 @@ namespace Who.Models
                             }
                             if (manager == DBNull.Value)
                             {
-                                manager = "KNOB &#x2019;";
+                                manager = "&#x2019;";
                             }
                             if (role == DBNull.Value)
                             {
-                                role = "&#x2014;";
+                                role = "Unknown Role";
                             }
                             Add((Guid)accountGuid, (string)account, (string)role, (string)manager);
                         }
