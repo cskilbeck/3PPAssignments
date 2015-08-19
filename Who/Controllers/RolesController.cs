@@ -12,7 +12,7 @@ namespace Who.Controllers
     {
         public ActionResult Roles()
         {
-            Roles r = new Roles();
+            var r = new { };
             return View(r);
         }
     }

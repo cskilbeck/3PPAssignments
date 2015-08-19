@@ -1,9 +1,10 @@
 ﻿$(document).ready(function () {
 
-    var timer = null;
-    var n = 0;
+    var timer = null,
+        n = 0,
+        searchText = "";
 
-    $("#searchText").on("change keydown cut paste input", function () {
+    $("#searchText").on("change cut paste input", function () {
 
         function cancelTimer() {
             if (timer !== null) {
@@ -15,17 +16,19 @@
         cancelTimer();
 
         timer = setTimeout(function () {
-            cancelTimer();
             var t = $("#searchText").val();
-            if (t.length > 0) {
+            cancelTimer();
+            if (t.length > 0 && t !== searchText) {
+                searchText = t;
                 $("#info").html("Searching...");
                 $.ajax("/find/Users/" + t, {
                     success: function (data, status, xhr) {
-                        var table = "<table><thead><tr><th>User</th><th>Account</th><th>Email</th></tr></thead><tbody>";
-                        var link = "https://developer.xboxlive.com/en-us/workspace/security/Pages/AssignRolesToAContact.aspx?contactid="
-                        var r = 0;
+                        var table = "<table><thead><tr><th>User</th><th>Account</th><th>Email</th></tr></thead><tbody>",
+                            link = "https://developer.xboxlive.com/en-us/workspace/security/Pages/AssignRolesToAContact.aspx?contactid=",
+                            r = 0,
+                            p;
                         for (n in data) {
-                            var p = data[n];
+                            p = data[n];
                             table += "<tr><td><a href=" + link + "{" + p.ID + "}>" + p.Name + "</a></td><td>" + "" + p.Account + "</td><td>" + p.Email + "</td></tr>";
                             ++r;
                         }
