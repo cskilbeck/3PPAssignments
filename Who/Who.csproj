@@ -194,11 +194,15 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegionsController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Region.cs" />
+    <Compile Include="Models\Roles.cs" />
+    <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -260,6 +264,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\filter.js" />
     <Content Include="Scripts\html2CSV.js" />
+    <Content Include="Scripts\roles.js" />
     <Content Include="Scripts\sorttable.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -267,6 +272,7 @@
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -280,8 +286,12 @@
     <None Include="Properties\PublishProfiles\EUDAM1.pubxml" />
     <Content Include="Views\Regions\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Graeme Server.pubxml" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\PublishProfiles\Who.pubxml" />
     <None Include="Properties\PublishProfiles\Zip.pubxml" />
+    <Content Include="Views\Roles\Roles.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Roles\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

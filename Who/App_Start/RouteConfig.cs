@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Web.Http;
 using System.Web.Routing;
 
 namespace Who
@@ -11,8 +12,8 @@ namespace Who
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Regions", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}",
+                defaults: new { controller = "Regions", action = "Index" }
             );
 
             routes.MapRoute(
@@ -20,7 +21,6 @@ namespace Who
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-
         }
     }
 }
